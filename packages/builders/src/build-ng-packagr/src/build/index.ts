@@ -29,8 +29,8 @@ export function execute(
   context: BuilderContext,
 ): Observable<BuilderOutput> {
   return from(scheduleBuildNgPackagr(options, context)).pipe(
-    switchMap(buildNgPackagr => buildNgPackagr.output),
     switchMap(() => handleAssets(context, options)),
+    switchMap(buildNgPackagr => buildNgPackagr.output),
     mapTo({ success: true }),
     catchError(error => {
       context.reportStatus('Error: ' + error);
